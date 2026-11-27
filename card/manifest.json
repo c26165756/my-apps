@@ -1,0 +1,18 @@
+{
+  "id": "/my-apps/card/",
+  "name": "刷哪張？3 秒快查",
+  "short_name": "信用卡",
+  "start_url": "/my-apps/card/",
+  "scope": "/my-apps/card/",
+  "display": "standalone",
+  "background_color": "#1a56ff",
+  "theme_color": "#1a56ff",
+  "icons": [
+    {
+      "src": "/my-apps/card/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
