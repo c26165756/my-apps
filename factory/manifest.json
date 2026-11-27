@@ -1,0 +1,18 @@
+{
+  "id": "/my-apps/factory/",
+  "name": "廠內事務",
+  "short_name": "廠內事務",
+  "start_url": "/my-apps/factory/",
+  "scope": "/my-apps/factory/",
+  "display": "standalone",
+  "background_color": "#7c4dff",
+  "theme_color": "#7c4dff",
+  "icons": [
+    {
+      "src": "/my-apps/factory/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
