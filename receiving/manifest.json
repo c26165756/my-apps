@@ -1,0 +1,18 @@
+{
+  "id": "/my-apps/receiving/",
+  "name": "驗收",
+  "short_name": "驗收",
+  "start_url": "/my-apps/receiving/",
+  "scope": "/my-apps/receiving/",
+  "display": "standalone",
+  "background_color": "#00c853",
+  "theme_color": "#00c853",
+  "icons": [
+    {
+      "src": "/my-apps/receiving/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
