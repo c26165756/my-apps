@@ -1,4 +1,5 @@
 {
+  "id": "/my-apps/gym/",
   "name": "健身器材歷史快查",
   "short_name": "健身",
   "start_url": "/my-apps/gym/",
@@ -8,9 +9,9 @@
   "theme_color": "#ff9a00",
   "icons": [
     {
-      "src": "/my-apps/gym/icon.jpeg",
-      "sizes": "1024x1024",
-      "type": "image/jpeg",
+      "src": "/my-apps/gym/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
     }
   ]
