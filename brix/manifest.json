@@ -1,0 +1,18 @@
+{
+  "id": "/my-apps/brix/",
+  "name": "糖鹽度",
+  "short_name": "糖鹽度",
+  "start_url": "/my-apps/brix/",
+  "scope": "/my-apps/brix/",
+  "display": "standalone",
+  "background_color": "#ff4081",
+  "theme_color": "#ff4081",
+  "icons": [
+    {
+      "src": "/my-apps/brix/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
