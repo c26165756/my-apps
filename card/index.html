@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a56ff">
+  <title>刷哪張？3 秒快查</title>
+  <link rel="manifest" href="./manifest.json">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100dvh; overflow: hidden; font-family: sans-serif; background: #eef4ff; }
+    #lock-screen {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100dvh; padding: 24px; background: linear-gradient(135deg, #2979ff, #0039cb);
+    }
+    .card {
+      background: #fff; padding: 28px 24px; border-radius: 20px; width: 100%; max-width: 320px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18); text-align: center;
+    }
+    .card h2 { margin-bottom: 16px; color: #333; font-size: 20px; }
+    .card input {
+      width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px;
+      font-size: 16px; margin-bottom: 14px; outline: none; text-align: center;
+    }
+    .card input:focus { border-color: #1a56ff; }
+    .card button {
+      width: 100%; padding: 12px; border: none; border-radius: 10px; font-size: 16px;
+      font-weight: bold; color: #fff; background: linear-gradient(135deg, #2979ff, #004ecb); cursor: pointer;
+    }
+    #err-msg { color: #e53935; font-size: 14px; margin-top: 10px; min-height: 20px; }
+    #app-frame { display: none; width: 100%; height: 100dvh; border: none; }
+  </style>
+</head>
+<body>
+  <div id="lock-screen">
+    <div class="card">
+      <h2>💳 刷哪張？快查解鎖</h2>
+      <input type="password" id="key-input" placeholder="請輸入專屬暗號" autocomplete="off">
+      <button onclick="unlock()">進入 App</button>
+      <div id="err-msg"></div>
+    </div>
+  </div>
+  <iframe id="app-frame"></iframe>
+
+  <script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbw6DYAh1HISq1WWhMVxX6pYoxYujH7F5vIYd6n4gMSrKMbNJ4vYsFQlYPdAN5kOdISh3w/exec';
+    const STORAGE_KEY = 'card_app_secret_key';
+    const lockScreen = document.getElementById('lock-screen');
+    const appFrame = document.getElementById('app-frame');
+    const errMsg = document.getElementById('err-msg');
+    const keyInput = document.getElementById('key-input');
+
+    function loadApp(key) {
+      lockScreen.style.display = 'none';
+      appFrame.style.display = 'block';
+      appFrame.src = GAS_URL + '?key=' + encodeURIComponent(key);
+    }
+
+    function unlock() {
+      const key = keyInput.value.trim();
+      if (!key) return;
+      errMsg.textContent = '';
+      localStorage.setItem(STORAGE_KEY, key);
+      loadApp(key);
+    }
+
+    keyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') unlock(); });
+
+    window.addEventListener('message', (event) => {
+      if (event.data === 'AUTH_FAILED') {
+        localStorage.removeItem(STORAGE_KEY);
+        appFrame.src = 'about:blank';
+        appFrame.style.display = 'none';
+        lockScreen.style.display = 'flex';
+        keyInput.value = '';
+        errMsg.textContent = '暗號錯誤，請重新輸入！';
+      }
+    });
+
+    const savedKey = localStorage.getItem(STORAGE_KEY);
+    if (savedKey) loadApp(savedKey);
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+  </script>
+</body>
+</html>
